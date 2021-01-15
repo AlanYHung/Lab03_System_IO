@@ -1,9 +1,9 @@
 ﻿using System;
 using System.IO;
 
-namespace _401d12_lab03
+namespace lab03
 {
-    class Program
+    public class Program
     {
         static void Main(string[] args)
         {
@@ -91,7 +91,7 @@ namespace _401d12_lab03
             labChallenge2(userNumbersArray);
         }
 
-        public static void labChallenge2(decimal[] userNumArr)
+        public static decimal labChallenge2(decimal[] userNumArr)
         {
             decimal average = 0;
             decimal countOfNums = userNumArr.Length;
@@ -103,6 +103,7 @@ namespace _401d12_lab03
 
             average = average / countOfNums;
             Console.WriteLine("The average of these {0} numbers is: {1}", countOfNums, average);
+            return average;
         }
 
         public static void labChallenge3()
@@ -247,13 +248,15 @@ namespace _401d12_lab03
             labChallenge9(userInput);
         }
 
-        public static void labChallenge9(string[] userInput)
+        public static string[] labChallenge9(string[] userInput)
         {
             for(int i = 0; i < userInput.Length; i++)
             {
                 userInput[i] += ": " + userInput[i].Length;
                 Console.WriteLine(userInput[i]);
             }
+
+            return userInput;
         }
     }
 }
