@@ -7,18 +7,16 @@ namespace _401d12_lab03
     {
         static void Main(string[] args)
         {
-            // challengeOneUserInteraction();
-            // labChallenge2();
+            // labChallengeOneUserInteraction();
+            // labChallengeTwoUserInteractionPart1();
             // labChallenge3();
-            // labChallenge4();
-            // labChallenge5();
+            // Console.WriteLine(labChallenge4(new int[] { 1, 1, 1, 2, 2, 2 }));
+            // Console.WriteLine(labChallenge5(new int[] { 1, 1, 66, 2, 200, 2 }));
             // labChallenge6();
-            // labChallenge7();
-            // labChallenge8();
-            // labChallenge9();
+            // labChallengeNineUserInteraction();
         }
 
-        public static void challengeOneUserInteraction()
+        public static void labChallengeOneUserInteraction()
         {
             Console.WriteLine("Please provide 3 numbers");
             string input = Console.ReadLine();
@@ -51,9 +49,60 @@ namespace _401d12_lab03
             }
         }
 
-        public static void labChallenge2()
+        public static void labChallengeTwoUserInteractionPart1()
         {
+            Console.Write("Please enter a number between 2-10: ");
+            string userInput = Console.ReadLine();
+            int userInputConverted = Convert.ToInt32(userInput);
 
+            if (userInputConverted < 2 || userInputConverted > 10)
+            {
+                labChallengeTwoUserInteractionPart1();
+            }
+            else
+            {
+                labChallengeTwoUserInteractionPart2(userInputConverted);
+            }
+        }
+
+        public static void labChallengeTwoUserInteractionPart2(int userLoopNumber)
+        {
+            decimal[] userNumbersArray = new decimal[userLoopNumber];
+            string currentUserNumber;
+            decimal currentUserNumberConverted;
+
+            for (int i = 1; i <= userLoopNumber; i++)
+            {
+                Console.Write($"{i} of {userLoopNumber} - Enter a number: ");
+                currentUserNumber = Console.ReadLine();
+                currentUserNumberConverted = Convert.ToDecimal(currentUserNumber);
+
+                if (currentUserNumberConverted < 0)
+                {
+                    Console.WriteLine("Only positive numbers allowed");
+                    i--;
+                }
+                else
+                {
+                    userNumbersArray[i - 1] = currentUserNumberConverted;
+                }
+            }
+
+            labChallenge2(userNumbersArray);
+        }
+
+        public static void labChallenge2(decimal[] userNumArr)
+        {
+            decimal average = 0;
+            decimal countOfNums = userNumArr.Length;
+
+            for(int i = 0; i < countOfNums; i++)
+            {
+                average += userNumArr[i];
+            }
+
+            average = average / countOfNums;
+            Console.WriteLine("The average of these {0} numbers is: {1}", countOfNums, average);
         }
 
         public static void labChallenge3()
@@ -70,11 +119,11 @@ namespace _401d12_lab03
 
                 for (int j = 1; j < 10; j++)
                 {
-                    if (j < numberOfSpaces)
+                    if (j <= numberOfSpaces)
                     {
                         finalOutput += space;
                     }
-                    else if (j < numberOfSpaces + numberOfAsterisk)
+                    else if (j <= numberOfSpaces + numberOfAsterisk)
                     {
                         finalOutput += asterisk;
                     }
@@ -156,16 +205,55 @@ namespace _401d12_lab03
         public static void labChallenge7(string path)
         {
             Console.WriteLine(File.ReadAllText(path));
+            labChallenge8(path);
         }
 
-        public static void labChallenge8()
+        public static void labChallenge8(string path)
         {
+            // http://www.blackwasp.co.uk/CountTextFileLines.aspx
+            string[] fileContents = File.ReadAllLines(path);
+            int numOfLines = fileContents.Length;
+            int userInput;
 
+            do
+            {
+                Console.Write("Which Line would you like to remove? (1-{0})", numOfLines);
+                userInput = Convert.ToInt32(Console.ReadLine());
+
+                if (userInput < 1 || userInput > numOfLines)
+                {
+                    Console.WriteLine("Need to enter a number between 1-{0}", numOfLines);
+                }
+            } while (userInput < 1 || userInput > numOfLines);
+
+            // https://stackoverflow.com/questions/2695444/clearing-content-of-text-file-using-c-sharp
+            File.WriteAllText(path, String.Empty);
+
+            for(int i = 0; i < numOfLines; i++)
+            {
+                if(i != userInput - 1)
+                {
+                    File.AppendAllText(path, fileContents[i] + "\n");
+                }
+            }
         }
 
-        public static void labChallenge9()
+        public static void labChallengeNineUserInteraction()
         {
+            string[] userInput;
 
+            Console.WriteLine("Please enter a sentence.");
+            userInput = Console.ReadLine().Split(" ");
+            labChallenge9(userInput);
+        }
+
+        public static void labChallenge9(string[] userInput)
+        {
+            for(int i = 0; i < userInput.Length; i++)
+            {
+                userInput[i] += ": " + userInput[i].Length;
+                Console.WriteLine(userInput[i]);
+            }
         }
     }
 }
